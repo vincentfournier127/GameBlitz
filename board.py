@@ -10,14 +10,24 @@ class Board(Entity):
         size_x = 6
         size_z = 6
         self.max_board_index = (size_x * size_z) - 1
-        for i in range(0,size_x):
-            for j in range(0,size_z):
-                cur_color = color.white if (i+j)%2 else color.black66
-                new_tile = Entity(model='cube', color=cur_color,parent=self)
-                new_tile.position = Vec3(i,j,0)
+        is_tile_dark = True
+        for i in range(0,size_z):
+            is_pair = i%2==0
+            for j in range(0,size_x):
+                current_color = color.white if is_tile_dark else color.black33
+                is_tile_dark = not is_tile_dark
+                new_tile = Entity(model='cube', color=current_color, parent=self)
+                if is_pair:
+                    new_tile.position = Vec3(j,0,i)
+                else:
+                    new_tile.position = Vec3(size_x-1-j,0,i)
+                self.tiles.append(new_tile)
         
     def tile_to_pos(self,board_index):
-        pass
+        if self.can_move_to(board_index):
+            return self.tiles[board_index].position + Vec3(0,0.5,0)
+        else:
+            raise IndexError('pos board invalide')
     
     def get_state(self,board_index):
         pass
@@ -31,7 +41,11 @@ class Board(Entity):
     def can_move_to(self,board_index):
         return board_index >= 0 and board_index <= self.max_board_index
 
-
+    def set_offset(self, offset: Vec3):
+        if isinstance(offset, Vec3):
+            self.offset = offset
+        else:
+            raise Exception()
 
 
 
