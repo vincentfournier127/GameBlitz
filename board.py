@@ -48,18 +48,17 @@ class Board(Entity):
             raise Exception()
 
 
-
-
-
-
-
-
-
-
-
-app = Ursina(borderless=False)
-application.hot_reloader.hotreload = True
-Board()
-
-EditorCamera()
-app.run()
+# if __name__ == "__main__":
+# app = Ursina()
+# application.hot_reloader.hotreload = True
+# b = Board()
+# p1 = Pion(color.fancy_orange, Texture.brick_wall, offset=Vec3(0,0,-0.25))
+# p1.teleport(b.tile_to_pos(0))
+# p2 = Pion(color.azure, Texture.grass_ground, offset=Vec3(0,0,0.25))
+# p2.teleport(b.tile_to_pos(0))
+# p1.animate_to([b.tile_to_pos(i) for i in range(1,10)], fin_tour)
+# #EditorCamera()
+# camera.position = Vec3(15,13,-15)
+# board_center = Vec3(3,0,3)
+# camera.look_at(board_center)
+# app.run()

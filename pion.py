@@ -4,13 +4,20 @@ import sample.color as color
 import sample.Texture as Texture
 
 class Pion(Entity):
-    def __init__(self,color, texture, offset, add_to_scene_entities=True, enabled=True, **kwargs):
+    def __init__(self,color, texture, offset,name, add_to_scene_entities=True, enabled=True, **kwargs):
         super().__init__(add_to_scene_entities, enabled,model=Cylinder(resolution=50,radius=0.25*0.5,start=0,height=0.05), color=color,texture=texture, **kwargs)
         self.model_body = Entity(model=Cylinder(resolution=50,radius=0.05,start=0.05,height=0.3), color=color,texture=texture,parent=self)
         self.model_head = Entity(model='sphere', color=color,texture=texture,scale=0.22,parent=self)
         self.model_head.position = Vec3(0,0.35,0)
         self.offset = offset
+        self.name = name
+        self.board_position = 0
 
+    def get_name(self):
+        return self.name
+    
+    def get_board_position(self):
+        return self.board_position
          
     def set_offset(self, offset:Vec3):
         if isinstance(offset,Vec3):
@@ -40,13 +47,14 @@ class Pion(Entity):
         s.start()
         
     def compute_rule(self):
-        return tuple(1,6)
+        return (36,36)
         
 #if __name__ == "__main__":
-app = Ursina(borderless=False)
-application.hot_reloader.hotreload = True
+# app = Ursina(borderless=False)
+# application.hot_reloader.hotreload = True
 
-p = Pion(color=color.blue_flame,texture=Texture.ice)
-p.animate_to([Vec3(5,0,0),],p.teleport)
-EditorCamera()
-app.run()
+# p1 = Pion(color=color.blue_flame,texture=Texture.ice, offset=Vec3(0,0,0.25))
+# p1.animate_to([Vec3(5,0,0),],p.teleport)
+
+# EditorCamera()
+# app.run()
